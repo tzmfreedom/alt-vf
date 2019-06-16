@@ -2,25 +2,24 @@ package main
 
 import (
 	"fmt"
-	"github.com/k0kubun/pp"
 	"html/template"
 	"io/ioutil"
 	"os"
 	"strings"
 	"text/template/parse"
 
-	"gopkg.in/urfave/cli.v1"
+	"github.com/k0kubun/pp"
 )
 
 var Version string
 
 func main() {
-	filename := "sample.vf"
+	filename := os.Args[1]
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		panic(err)
 	}
-	tmpl, err := template.New("name").Parse(string(body))
+	tmpl, err := template.New("visualforce").Parse(string(body))
 	if err != nil {
 		panic(err)
 	}
@@ -32,25 +31,7 @@ func main() {
 	fmt.Printf("<apex:page>\n%s\n</apex:page>", content)
 }
 
-func _cli() {
-	cli.VersionPrinter = func(c *cli.Context) {
-		fmt.Println(Version)
-	}
-	app := cli.NewApp()
-	app.Name = "alt-apex"
-	app.Usage = "Apex Alternative Language"
-	app.Version = Version
-	app.Commands = []cli.Command{
-		{},
-	}
-	err := app.Run(os.Args)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
-		os.Exit(1)
-	}
-}
-
-type Printer struct {}
+type Printer struct{}
 
 func (p *Printer) traverse(node parse.Node) (string, error) {
 	switch node := node.(type) {

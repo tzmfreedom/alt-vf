@@ -12,5 +12,6 @@ github.com/mattn/go-isatty v0.0.8/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hd
 github.com/tzmfreedom/alt-apex v0.0.0-20190606091527-63cb2b8eb62e h1:XZpHy6MSaf7w7PquSe4jgS7mr1O/aQbbbwjk+BRvVnM=
 github.com/tzmfreedom/alt-apex v0.0.0-20190606091527-63cb2b8eb62e/go.mod h1:/mqPuYRgR0vDWlltl/cZW8647h592rm/fAyZckogUso=
 golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/sys v0.0.0-20190614160838-b47fdc937951/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 gopkg.in/urfave/cli.v1 v1.20.0 h1:NdAVW6RYxDif9DhDHaAortIu956m2c0v+09AZBPTbE0=
 gopkg.in/urfave/cli.v1 v1.20.0/go.mod h1:vuBzUtMdQeixQj8LVd+/98pzhxNGQoyuPBlsXHOQNO0=
