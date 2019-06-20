@@ -24,6 +24,7 @@ func main() {
 		panic(err)
 	}
 	p := &Printer{}
+	debug(tmpl.Tree.Root)
 	content, err := p.traverse(tmpl.Tree.Root)
 	if err != nil {
 		panic(err)
@@ -36,6 +37,7 @@ type Printer struct{}
 func (p *Printer) traverse(node parse.Node) (string, error) {
 	switch node := node.(type) {
 	case *parse.ActionNode:
+		return p.traverse(node.Pipe.Cmds[0])
 	case *parse.IfNode:
 		cmd := node.BranchNode.Pipe.Cmds[0]
 		var condition string
@@ -68,6 +70,22 @@ func (p *Printer) traverse(node parse.Node) (string, error) {
 		}
 		return strings.Join(lines, "\n"), nil
 	case *parse.RangeNode:
+		loopContent, err := p.traverse(node.List)
+		if err != nil {
+			return "", err
+		}
+		decl := node.Pipe.Decl[0].String()[1:]
+		if err != nil {
+			return "", err
+		}
+		list := node.Pipe.Cmds[0].Args[0].String()[1:]
+		return fmt.Sprintf("<apex:repeat value=\"{!%s}\" var=\"{!%s}\">%s</apex:repeat>", list, decl, loopContent), nil
+	case *parse.FieldNode:
+		return fmt.Sprintf("<apex:outputText value=\"{!%s}\"></apex:outputText>", node.Ident[0][1:]), nil
+	case *parse.CommandNode:
+		return fmt.Sprintf("<apex:outputText value=\"{!%s}\"></apex:outputText>", node.Args[0].String()[1:]), nil
+	case *parse.VariableNode:
+		return fmt.Sprintf("<apex:outputText value=\"{!%s}\"></apex:outputText>", node.Ident[0][1:]), nil
 	case *parse.TemplateNode:
 	case *parse.TextNode:
 		return node.String(), nil
